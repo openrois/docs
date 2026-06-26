@@ -30,14 +30,14 @@ flowchart LR
 | M2 | Remote Gateway | `gateway` (WebSocket, JSON-RPC 2.0, auth hook) | todo |
 | M3 | ROS 2 Bus Adapter | `ROS2BusAdapter` (rclpy), no core changes | todo |
 | M4 | Mock ROS 2 Robot Components | `person_detection`, `navigation`, `system_information` nodes | todo |
-| M5 | SDK and Robot MVP | `sdk-csharp` / `sdk-js`, operator app, **v0.1.0 release** | todo |
+| M5 | SDK and Robot MVP | `sdk-js`, web operator app, **v0.1.0 release** | todo |
 | M8 | Real Robot Component and Mixed Paradigm | YOLO `person_detection`, robot + avatar on one gateway | todo |
 | M9 | Auth and Bus Security | `auth`, `rbac`, per-fleet isolation | todo |
 | M10 | WebRTC Media | Streaming components, telepresence | todo |
 | M11 | Full Component Library | All 17 basic components, both paradigms, **v1.0** | todo |
 
 The MVP is M5: the minimum that lets an operator clone, build, and control a ROS 2
-robot from an application over WebSocket. The paradigm-neutrality proof is M8 (mixed
+robot from a web application over WebSocket. The paradigm-neutrality proof is M8 (mixed
 robot + avatar on one gateway). The 1.0 release is M11.
 
 ## Versioning

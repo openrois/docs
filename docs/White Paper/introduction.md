@@ -38,7 +38,7 @@ through a single, paradigm-neutral SDK.
 This white paper describes the following contributions:
 
 1. A **paradigm-neutral architecture** for RoIS 2.0 that decouples the engine,
-   gateway, and client SDK from any specific middleware through a four-method
+   gateway, and client SDK from any specific middleware through a five-method
    `BusAdapter` contract ([BusAdapter Contract](/docs/White%20Paper/busadapter-contract)).
 2. A **single-source-of-truth type pipeline** that authors interfaces as Python
    Pydantic models and generates C# and TypeScript types from a canonical JSON

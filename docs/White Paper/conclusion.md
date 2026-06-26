@@ -26,7 +26,7 @@ service without rewriting the scenario logic.
 
 ## OpenRoIS and Unity
 
-Unity is the primary client platform for operator applications. The C# SDK targets
+Unity is a secondary client platform for operator applications. The C# SDK targets
 Unity via UPM and runs on both Mono (Unity 6.3+) and CoreCLR (Unity 6.8). The same
 SDK also works outside Unity (any .NET runtime). The in-process avatar topology
 means a Unity application can host the engine, gateway, and avatar components in a

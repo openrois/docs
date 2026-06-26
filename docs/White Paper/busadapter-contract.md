@@ -6,7 +6,7 @@ sidebar_position: 6
 # The BusAdapter Contract
 
 The `BusAdapter` is the single abstraction that decouples the engine from any
-paradigm. The engine, gateway, and SDK depend only on this four-method contract. They
+paradigm. The engine, gateway, and SDK depend only on this five-method contract. They
 never reference ROS, DDS, gRPC, or a game engine.
 
 ```mermaid
@@ -17,6 +17,7 @@ classDiagram
         +invoke(ref, command) CommandResult
         +query(ref, query) Result
         +subscribe(ref, sink) SubscribeId
+        +unsubscribe(subscribeId) ReturnCode
     }
 
     class InProcessBusAdapter {
@@ -49,6 +50,7 @@ classDiagram
 | `invoke` | Execute a command (start, stop, execute, set_parameter) | ROS 2 action or service | direct method call | gRPC unary |
 | `query` | Synchronous read (component_status, get_parameter) | ROS 2 service | direct method call | gRPC unary |
 | `subscribe` | Async event push (notify_event, notify_stream_status) | ROS 2 topic subscription | callback / language event | gRPC server-stream |
+| `unsubscribe` | Cancel an event subscription | ROS 2 topic unsubscribe | remove callback | cancel gRPC stream |
 
 ## RoIS operation to BusAdapter method mapping
 
@@ -61,9 +63,9 @@ The RoIS interface operations map to BusAdapter methods as follows:
 - Async push operations (`notify_event`, `notify_stream_status`) map to `subscribe`
   plus an event sink.
 
-## Why four methods
+## Why five methods
 
-The contract is deliberately kept to four methods. Adding transport-specific knobs
+The contract is deliberately kept to five methods. Adding transport-specific knobs
 (QoS policies, deadlines, reliability) to the contract would leak paradigm
 assumptions into the engine. Instead, QoS, deadlines, and reliability belong to
 whichever adapter needs them. Only the ROS 2 adapter needs DDS QoS. The in-process

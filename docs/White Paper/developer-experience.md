@@ -14,8 +14,8 @@ gateway.
 flowchart TB
     subgraph SDKs["Client SDKs"]
         direction LR
-        CSharp["C# SDK<br/>Unity operator apps<br/>(primary client)"]
-        TS["TypeScript SDK<br/>Web dashboards, monitoring<br/>(secondary client)"]
+        CSharp["C# SDK<br/>Unity operator apps<br/>(secondary client)"]
+        TS["TypeScript SDK<br/>Web dashboards, monitoring<br/>(primary client)"]
         Py["Python SDK<br/>Scripting, E2E testing<br/>(secondary client)"]
     end
 
@@ -24,9 +24,9 @@ flowchart TB
     BusAdapter --> Hosts["Robots, Avatars, Services"]
 ```
 
-## C# SDK for Unity (primary client)
+## C# SDK for Unity (secondary client)
 
-The C# SDK (`OpenRoIS.Sdk` / `org.openrois.sdk`) is the primary client SDK, targeting
+The C# SDK (`OpenRoIS.Sdk` / `org.openrois.sdk`) is a secondary client SDK, targeting
 Unity operator applications. It connects to the gateway over WebSocket using
 JSON-RPC 2.0, with async connect, auto-reconnect, token handling, heartbeat, and
 typed errors. Component proxies provide typed access to each RoIS component with
@@ -55,11 +55,11 @@ Key characteristics:
 - Typed component proxies: `engine.BindAsync("PersonDetection")` returns a typed
   proxy with `.On(event)` handlers.
 
-## TypeScript SDK for web (secondary client)
+## TypeScript SDK for web (primary client)
 
-The TypeScript SDK (`@openrois/sdk`) serves non-Unity web applications: operator
-dashboards, monitoring tools, configuration UIs, and automated testing. It runs in
-both browsers and Node.js.
+The TypeScript SDK (`@openrois/sdk`) is the primary client SDK for web applications:
+operator dashboards, monitoring tools, configuration UIs, and automated testing. It
+runs in both browsers and Node.js.
 
 ```ts
 import { RoISEngine } from "@openrois/sdk";

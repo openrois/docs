@@ -19,7 +19,7 @@ flowchart LR
     end
 
     subgraph Generated["Generated language stacks"]
-        CS["interfaces/csharp/<br/>OpenRoIS.Interfaces<br/>(netstandard2.1 / net10.0)"]
+        CS["interfaces/csharp/<br/>OpenRoIS.Interfaces<br/>(netstandard2.1)"]
         TS["interfaces/typescript/<br/>@openrois/interfaces<br/>(ESM + zod schemas)"]
     end
 

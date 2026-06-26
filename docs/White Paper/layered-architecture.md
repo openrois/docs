@@ -28,7 +28,7 @@ flowchart TB
 
     subgraph L3["Layer 3: Internal Bus (Pluggable)"]
         direction LR
-        BusAdapter["BusAdapter Contract<br/>discover, invoke, query, subscribe"]
+        BusAdapter["BusAdapter Contract<br/>discover, invoke, query, subscribe, unsubscribe"]
     end
 
     subgraph L4["Layer 4: Hosts (Sub-Engines and Components)"]

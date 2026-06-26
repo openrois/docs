@@ -15,7 +15,7 @@ as JSON-RPC notifications (messages with no `id` field).
 
 ```
 rois.system.*     SystemIF:    connect, disconnect, get_profile, get_error_detail
-rois.command.*    CommandIF:   search, bind, release, get_parameter, set_parameter, execute, get_command_result
+rois.command.*    CommandIF:   search, bind, bind_any, release, get_parameter, set_parameter, execute, get_command_result
 rois.query.*      QueryIF:     query
 rois.event.*      EventIF:     subscribe, unsubscribe, get_event_detail
 rois.stream.*     Streaming:   connect_stream, disconnect_stream, suspend_stream, resume_stream, query_stream_status
@@ -47,10 +47,11 @@ rois.stream.notify_status  notify_stream_status(stream_id, status)
 |--------|--------|----------|
 | `rois.command.search` | `{condition: string}` | `{return_code, component_ref_list: string[]}` |
 | `rois.command.bind` | `{component_ref: string}` | `{return_code}` |
+| `rois.command.bind_any` | `{condition: string}` | `{return_code, component_ref: string}` |
 | `rois.command.release` | `{component_ref: string}` | `{return_code}` |
-| `rois.command.get_parameter` | `{component_ref, parameter_names: string[]}` | `{return_code, parameters: Parameter[]}` |
-| `rois.command.set_parameter` | `{component_ref, parameters: Parameter[]}` | `{return_code}` |
-| `rois.command.execute` | `{component_ref, command_unit_list: CommandUnitSequence}` | `{return_code, command_id: string}` |
+| `rois.command.get_parameter` | `{component_ref: string}` | `{return_code, parameters: Parameter[]}` |
+| `rois.command.set_parameter` | `{component_ref, parameters: Parameter[]}` | `{return_code, command_id: string}` |
+| `rois.command.execute` | `{command_unit_list: CommandUnitSequence}` | `{return_code, command_id: string}` |
 | `rois.command.get_command_result` | `{command_id: string}` | `{return_code, results: Result[]}` |
 
 ### Query interface (`rois.query.*`)
@@ -236,7 +237,6 @@ Gateway responds with matching component references:
   "id": 5,
   "method": "rois.command.execute",
   "params": {
-    "component_ref": "robot-a1/PersonDetection",
     "command_unit_list": {
       "command_unit_list": [
         {
@@ -335,7 +335,6 @@ Set the navigation parameters:
   "id": 8,
   "method": "rois.command.execute",
   "params": {
-    "component_ref": "robot-a1/Navigation",
     "command_unit_list": {
       "command_unit_list": [
         {
@@ -540,34 +539,30 @@ parallel:
   "id": 13,
   "method": "rois.command.execute",
   "params": {
-    "component_ref": "robot-a1/Navigation",
     "command_unit_list": {
       "command_unit_list": [
         {
-          "command_message": {
-            "component_ref": "robot-a1/PersonDetection",
-            "command_type": "start",
-            "command_id": "cmd-pd-start"
-          }
+          "component_ref": "robot-a1/PersonDetection",
+          "command_type": "start",
+          "command_id": "cmd-pd-start"
         },
         {
-          "concurrent_commands": {
-            "command_list": [
-              {
-                "component_ref": "robot-a1/Navigation",
-                "command_type": "execute",
-                "command_id": "cmd-nav-002",
-                "arguments": [
-                  {"name": "target_positions", "data_type_ref": "string[]", "value": "[\"3.0,1.5,0.0\"]"}
-                ]
-              },
-              {
-                "component_ref": "robot-a1/SpeechSynthesis",
-                "command_type": "set_parameter",
-                "command_id": "cmd-speech-001",
-                "arguments": [
-                  {"name": "speech_text", "data_type_ref": "string", "value": "Moving to target"}
-                ]
+          "command_list": [
+            {
+              "component_ref": "robot-a1/Navigation",
+              "command_type": "execute",
+              "command_id": "cmd-nav-002",
+              "arguments": [
+                {"name": "target_positions", "data_type_ref": "string[]", "value": "[\"3.0,1.5,0.0\"]"}
+              ]
+            },
+            {
+              "component_ref": "robot-a1/SpeechSynthesis",
+              "command_type": "set_parameter",
+              "command_id": "cmd-speech-001",
+              "arguments": [
+                {"name": "speech_text", "data_type_ref": "string", "value": "Moving to target"}
+              ]
               }
             ]
           }
